@@ -3,15 +3,15 @@ import Link from "next/link";
 
 const navlinks = [
   { label: "Home", href: "/" },
-  { label: "Magazine", href: "/" },
-  { label: "Smart Connects", href: "/" },
-  { label: "My KKI", href: "/" },
+  { label: "Magazine", href: "/m" },
+  { label: "Smart Connects", href: "/chat" },
+  { label: "My KKI", href: "/m/profile" },
 ];
 
 const Header = () => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-amber-200/60 bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="flex h-14 w-12 items-center justify-center">
             <Image src={"/media/kki.webp"} width={300} height={300} alt="Kavya Kishor International" className="h-full w-full object-contain"/>
