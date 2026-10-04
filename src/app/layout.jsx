@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Tiro_Bangla } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AuthProvider from "@/context/auth/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +22,8 @@ const tiroBangla = Tiro_Bangla({
 
 export const metadata = {
   title: "KKI | Global Creative & Literary Organization",
-  description: "Kavya Kishor International (KKI) is a global creative and cultural organization connecting writers, poets, creators, and communities through literature, publications, collaboration, and cultural initiatives.",
+  description:
+    "Kavya Kishor International (KKI) is a global creative and cultural organization connecting writers, poets, creators, and communities through literature, publications, collaboration, and cultural initiatives.",
 };
 
 export default function RootLayout({ children }) {
@@ -32,11 +34,15 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} ${tiroBangla.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header></Header>
-        <main>
-          {children}
-        </main>
-        <Footer></Footer>
+        <AuthProvider>
+          <Header />
+
+          <main className="flex-1">
+            {children}
+          </main>
+
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

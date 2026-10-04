@@ -24,8 +24,8 @@ const Footer = () => {
               <Image src="/media/kki.webp" width={300} height={300} alt="Kavya Kishor International" className="h-full w-full object-contain"/>
             </div>
             <div>
-              <p className="text-base font-bold tracking-tight text-gray-900">KKI Smart Connects</p>
-              <p className="text-xs text-gray-600">Kavya Kishor International</p>
+              <p className="text-base font-bold tracking-tight text-gray-900">Kavya Kishor International</p>
+              <p className="text-xs text-gray-600">Connect. Communicate. Collaborate.</p>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600">A connected digital platform for KKI authors, readers, editors, reviewers, and collaborators to publish, communicate, and collaborate.</p>
