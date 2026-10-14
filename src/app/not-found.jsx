@@ -8,7 +8,7 @@ export default function NotFound() {
     <main className="flex min-h-screen items-center justify-center bg-white px-6">
       <div className="mx-auto w-full max-w-2xl text-center">
         <div className="mb-6">
-          <span className="text-8xl font-black tracking-tight text-amber-500 sm:text-9xl">404</span>
+          <p className="text-8xl font-black tracking-tight text-amber-500 sm:text-9xl">404</p>
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Page not found</h1>
         <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-gray-600 sm:text-lg">The page you are looking for does not exist or may have been moved. Let&apos;s get you back to KKI Smart Connects.</p>

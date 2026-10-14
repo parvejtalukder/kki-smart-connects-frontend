@@ -3,6 +3,10 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/context/auth/AuthProvider";
+import { Toaster } from "react-hot-toast";
+import Loader from "@/components/Loader";
+import RootLoader from "@/utils/RootLoader";
+// import useAuth from "@/hooks/useAuth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +31,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html
       lang="bn"
@@ -35,14 +40,18 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>
+          <RootLoader>
           <Header />
-
           <main className="flex-1">
             {children}
           </main>
-
           <Footer />
+          </RootLoader>
         </AuthProvider>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}>
+        </Toaster>
       </body>
     </html>
   );
