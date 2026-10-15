@@ -8,11 +8,38 @@ import { auth } from "@/config/config.firebase";
 
 const googleProvider = new GoogleAuthProvider();
 
+const getUserFromBD = async (currentUser) => {
+  try {
+    const token = await currentUser.getIdToken();
+
+    const resData = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await resData.json();
+
+    if (!resData.ok) {
+      throw new Error(data.message || "Failed to fetch user from database.");
+    }
+
+    return data.user;
+  } catch (error) {
+    console.error("getUserFromBD error:", error);
+    return null;
+  }
+};
+
 const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(user);
+  // console.log(user);
 
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -44,14 +71,29 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, profile);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    try {
+      if (!currentUser) {
+        setUser(null);
+        return;
+      }
+      const userFromBD = await getUserFromBD(currentUser);
+      setUser({
+        ...currentUser,
+        role: userFromBD?.role ?? null,
+        dbUser: userFromBD,
+      });
+    } catch (error) {
+      console.error("Auth state error:", error);
       setUser(currentUser);
+    } finally {
       setLoading(false);
-    });
+    }
+  });
 
-    return () => unsubscribe();
-  }, []);
+  return () => unsubscribe();
+}, []);
 
   const authInfo = {
     user,
