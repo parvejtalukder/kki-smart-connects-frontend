@@ -4,7 +4,7 @@ import useAuth from "@/hooks/useAuth";
 import { LogInIcon, LogOutIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
 
@@ -18,6 +18,7 @@ const navlinks = [
 const Header = () => {
   const { user, logOut, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleLogOut = async () => {
     try {
@@ -64,7 +65,12 @@ const Header = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-amber-100/70 hover:text-amber-900"
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                pathname === link.href
+                  ? "bg-amber-100 text-amber-900"
+                  : "text-gray-700 hover:bg-amber-100/70 hover:text-amber-900"
+              }`}
+              // className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-amber-100/70 hover:text-amber-900"
             >
               {link.label}
             </Link>
@@ -113,11 +119,17 @@ const Header = () => {
             tabIndex={-1}
             className="menu menu-sm dropdown-content z-10 mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
-            {navlinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href}>{link.label}</Link>
-              </li>
-            ))}
+          <Link
+            href={link.href}
+            className={
+              pathname === link.href
+                ? "bg-amber-100 font-semibold text-amber-900"
+                : ""
+            }
+            aria-current={pathname === link.href ? "page" : undefined}
+          >
+            {link.label}
+          </Link>
 
             {user ? (
               <li>

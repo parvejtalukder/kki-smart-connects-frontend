@@ -1,26 +1,46 @@
-"use client"
+"use client";
 
-import Loader from '@/components/Loader';
-import useAuth from '@/hooks/useAuth';
-import React from 'react';
+import Loader from "@/components/Loader";
+import SelectLanguage from "@/components/popups/SelectLanguage";
+import useAuth from "@/hooks/useAuth";
+import React, { useEffect, useState } from "react";
 
 const Chat = () => {
+  const { loading, user } = useAuth();
+  const dbUser = user?.dbUser;
 
-    const { loading, user } = useAuth();
-    const language = user.dbUser.language;
+  const [showLanguagePopup, setShowLanguagePopup] = useState(false);
 
-    if (loading) {
-        return <Loader></Loader>
+  useEffect(() => {
+    if (!loading && dbUser && !dbUser.language) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowLanguagePopup(true);
     }
+  }, [loading, dbUser]);
 
-    if (language == "") {
-        
-    }
+  const handleLanguageSelect = (language) => {
+    console.log("Selected language:", language);
+    setShowLanguagePopup(false);
+  };
 
-    return (
-        <div>
-        </div>
-    );
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <>
+      <SelectLanguage
+        open={showLanguagePopup}
+        onOpenChange={setShowLanguagePopup}
+        currentLanguage={dbUser?.language}
+        onLanguageSelect={handleLanguageSelect}
+      />
+
+      <div>
+        {/* Your chat UI */}
+      </div>
+    </>
+  );
 };
 
 export default Chat;
