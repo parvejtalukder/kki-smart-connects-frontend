@@ -119,18 +119,16 @@ const Header = () => {
             tabIndex={-1}
             className="menu menu-sm dropdown-content z-10 mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
-          <Link
-            href={link.href}
-            className={
-              pathname === link.href
-                ? "bg-amber-100 font-semibold text-amber-900"
-                : ""
-            }
-            aria-current={pathname === link.href ? "page" : undefined}
-          >
-            {link.label}
-          </Link>
-
+               {navlinks.map((link) => (
+              <Link 
+                key={link.href}
+                href={link.href} 
+                className={pathname === link.href ? "bg-amber-100 font-semibold text-amber-900" : ""} 
+                aria-current={pathname === link.href ? "page" : undefined}
+              > 
+                {link.label} 
+              </Link>
+            ))}
             {user ? (
               <li>
                 <button type="button" onClick={handleLogOut}>
