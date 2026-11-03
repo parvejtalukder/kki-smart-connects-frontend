@@ -1,3 +1,4 @@
+import AllowUserOnly from '@/lib/protection/AllowUserOnly';
 import React from 'react';
 
 export const metadata = {
@@ -9,9 +10,9 @@ export const metadata = {
 const layout = ({ children }) => {
 
     return (
-        <div>
-            {children}
-        </div>
+        <AllowUserOnly>
+        {children}
+        </AllowUserOnly>
     );
 };
 

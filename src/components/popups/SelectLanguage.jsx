@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Check, Languages, Search, X } from "lucide-react";
 import useAuth from "@/hooks/useAuth";
+import apiFetch from "@/utils/apiFetch";
 import toast from "react-hot-toast";
 
 const languageCodes = [
@@ -57,34 +58,19 @@ export default function SelectLanguage({
 
   const closeDialog = () => onOpenChange?.(false);
 
-const { user, setLoading } = useAuth();
+const { setLoading } = useAuth();
 // console.log(user);
 
 const handleContinue = async () => {
   if (!selectedLanguage) return;
 
   try {
-    const token = await user.accessToken;
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/update/language`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          language: selectedLanguage,
-        }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to update language.");
-    }
+    await apiFetch("/users/update/language", {
+      method: "PATCH",
+      body: JSON.stringify({
+        language: selectedLanguage,
+      }),
+    });
 
     onLanguageSelect?.(selectedLanguage);
     toast.success("Language selected successfully!");

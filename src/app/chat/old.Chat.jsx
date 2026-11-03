@@ -37,7 +37,7 @@ const Chat = () => {
       />
 
       <div>
-        {/* Your chat UI */}
+        
       </div>
     </>
   );

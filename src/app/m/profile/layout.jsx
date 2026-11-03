@@ -1,3 +1,4 @@
+import AllowUserOnly from "@/lib/protection/AllowUserOnly";
 import React from "react";
 
 export const metadata = {
@@ -9,7 +10,9 @@ export const metadata = {
 export default function ProfileLayout({ children }) {
   return (
     <main className="min-h-screen bg-amber-100 -mb-10">
+      <AllowUserOnly>
       {children}
+      </AllowUserOnly>
     </main>
   );
 }

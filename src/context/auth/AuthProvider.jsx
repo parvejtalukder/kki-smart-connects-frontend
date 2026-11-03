@@ -5,32 +5,17 @@ import { useEffect, useState } from "react";
 
 import { AuthContext } from "./AuthContext";
 import { auth } from "@/config/config.firebase";
+import apiFetch from "@/utils/apiFetch";
 
 const googleProvider = new GoogleAuthProvider();
 
-const getUserFromBD = async (currentUser) => {
+const getusersFromDB = async () => {
   try {
-    const token = await currentUser.getIdToken();
-
-    const resData = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await resData.json();
-
-    if (!resData.ok) {
-      throw new Error(data.message || "Failed to fetch user from database.");
-    }
+    const data = await apiFetch("/users/me");
 
     return data.user;
   } catch (error) {
-    console.error("getUserFromBD error:", error);
+    console.error("getusersFromDB error:", error);
     return null;
   }
 };
@@ -39,7 +24,7 @@ const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  // console.log(user);
+  console.log(user);
 
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -78,11 +63,11 @@ const AuthProvider = ({ children }) => {
         setUser(null);
         return;
       }
-      const userFromBD = await getUserFromBD(currentUser);
+      const usersFromDB = await getusersFromDB();
       setUser({
         ...currentUser,
-        role: userFromBD?.role ?? null,
-        dbUser: userFromBD,
+        role: usersFromDB?.role ?? null,
+        dbUser: usersFromDB,
       });
     } catch (error) {
       console.error("Auth state error:", error);

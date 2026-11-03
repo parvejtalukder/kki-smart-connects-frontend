@@ -1,11 +1,11 @@
 import { Geist, Geist_Mono, Tiro_Bangla } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import HeadFootWrapper from "@/components/HeadFootWrapper";
 import AuthProvider from "@/context/auth/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import Loader from "@/components/Loader";
 import RootLoader from "@/utils/RootLoader";
+// import { usePathname } from "next/navigation";
 // import useAuth from "@/hooks/useAuth";
 
 const geistSans = Geist({
@@ -31,7 +31,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
   return (
     <html
       lang="bn"
@@ -41,11 +40,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <RootLoader>
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
+            <HeadFootWrapper>{children}</HeadFootWrapper>
           </RootLoader>
         </AuthProvider>
         <Toaster

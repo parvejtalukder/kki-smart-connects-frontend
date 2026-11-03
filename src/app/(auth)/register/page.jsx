@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FiBookOpen, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiFeather, FiShield, FiUser, FiAtSign, } from "react-icons/fi";
 import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
+import apiFetch from "@/utils/apiFetch";
 import toast, { ToastBar } from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { FiUpload, FiImage } from "react-icons/fi";
@@ -93,26 +94,13 @@ const Page = () => {
         throw new Error("Authentication required.");
       }
       
-      const idToken = await firebaseUser.getIdToken();
-      const apiResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${idToken}`,
-          },
-          body: JSON.stringify({
-            displayName: updatedUser?.displayName || fullName.trim(),
-            photoURL: photoURL || updatedUser?.photoURL || "",
-          }),
-        }
-      );
-      const apiData = await apiResponse.json();
-
-      if (!apiResponse.ok) {
-        throw new Error(apiData.message || "Failed to save user profile.");
-      }
+      await apiFetch("/users/me", {
+        method: "PUT",
+        body: JSON.stringify({
+          displayName: updatedUser?.displayName || fullName.trim(),
+          photoURL: photoURL || updatedUser?.photoURL || "",
+        }),
+      });
 
       window.location.assign("/");
 
