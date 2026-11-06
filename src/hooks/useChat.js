@@ -110,10 +110,76 @@ const useChat = () => {
         });
       };
 
+
+      const handleMessageTranslated = ({ _id, translatedText }) => {
+        setMessages((previous) =>
+          previous.map((message) => {
+            if (String(message._id) !== String(_id)) {
+              return message;
+            }
+      
+            return {
+              ...message,
+              textMessage: {
+                ...message.textMessage,
+                translatedText,
+                translationStatus: "done",
+              },
+            };
+          })
+        );
+      
+        setConversations((previous) =>
+          previous.map((conversation) => {
+            if (String(conversation.lastMessageId) !== String(_id)) {
+              return conversation;
+            }
+      
+            if (
+              String(conversation.lastMessageSenderId) ===
+              String(dbUser._id)
+            ) {
+              return conversation;
+            }
+      
+            return {
+              ...conversation,
+              lastMessage: translatedText,
+            };
+          })
+        );
+      };
+
+      const handleMessageTranslationFailed = ({ _id }) => {
+        setMessages(
+            (previous) => 
+                previous.map((message) => {
+                    if (String(message._id) !== String(_id)) {
+                        return message;
+                    }
+
+                    return {
+                        ...message,
+                        textMessage: {
+                            ...message.textMessage,
+                            translationStatus: "failed",
+                        },
+                    }
+
+                } )
+        )
+      }
+
       socket.on("newMessage", handleNewMessage);
+      socket.on("messageTranslated", handleMessageTranslated);
+      socket.on("messageTranslationFailed", handleMessageTranslationFailed);
+
       return () => {
         socket.off("newMessage", handleNewMessage);
+        socket.off("messageTranslated", handleMessageTranslated);
+        socket.off("messageTranslationFailed", handleMessageTranslationFailed);
       };
+
     }, [socket, dbUser?._id, loadConversations]);
 
     useEffect(() => {
@@ -248,7 +314,10 @@ const useChat = () => {
         }
 
         setDraft("");
-        await loadConversations().catch(() => {});
+        void loadConversations().catch((error) => {
+          console.error("Conversation refresh failed:", error);
+        });
+
         } catch (err) {
         setError(err.message || "Could not send the message.");
         } finally {

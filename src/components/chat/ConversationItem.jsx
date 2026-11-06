@@ -1,8 +1,11 @@
 "use client";
 
 import { formatTime, getInitials, getPreview } from "@/utils/chatHelpers";
+import { useState } from "react";
 
 const ConversationItem = ({ person, isSelected, activeTab, onSelect }) => {
+  const [failedPhotoUrl, setFailedPhotoUrl] = useState(null);
+
   return (
     <button
       type="button"
@@ -11,11 +14,12 @@ const ConversationItem = ({ person, isSelected, activeTab, onSelect }) => {
         isSelected ? "bg-blue-50 ring-1 ring-blue-100" : "hover:bg-slate-50"
       }`}
     >
-      {person.photoURL ? (
+      {person.photoURL && person.photoURL !== failedPhotoUrl ? (
         <img
           src={person.photoURL}
           alt=""
           className="h-12 w-12 shrink-0 rounded-full bg-slate-100 object-cover"
+          onError={() => setFailedPhotoUrl(person.photoURL)}
         />
       ) : (
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 font-bold text-blue-700">

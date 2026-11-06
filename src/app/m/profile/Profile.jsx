@@ -60,15 +60,14 @@ export default function Profile() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-4">
-          {/* Sidebar */}
           <div className="md:col-span-1">
             <Card className="p-0">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center">
                   <Avatar className="size-18">
                     <AvatarImage
-                      src={dbUser.photoURL || "https://github.com/shadcn.png"}
-                      alt={dbUser.displayname || "User"}
+                      src={dbUser?.photoURL || "https://github.com/shadcn.png"}
+                      alt={dbUser?.displayName || "User"}
                     />
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
@@ -111,7 +110,6 @@ export default function Profile() {
             </Card>
           </div>
 
-          {/* Main Content */}
           <div className="space-y-6 md:col-span-3 bg-white flex justify-center items-center rounded-2xl border border-gray-300">
             <p>Under Construction</p>
             {/* Stats */}

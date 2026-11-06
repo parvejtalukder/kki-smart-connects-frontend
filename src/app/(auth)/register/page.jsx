@@ -7,7 +7,7 @@ import useAuth from "@/hooks/useAuth";
 import apiFetch from "@/utils/apiFetch";
 import toast, { ToastBar } from "react-hot-toast";
 import { redirect } from "next/navigation";
-import { FiUpload, FiImage } from "react-icons/fi";
+import { FiImage } from "react-icons/fi";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,94 +21,103 @@ const Page = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [imageUploading, setImageUploading] = useState(false);
+  const [accountCreated, setAccountCreated] = useState(false);
   const { registerUser, updateUser, user } = useAuth();
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please select a valid image.");
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      toast.error("Only JPEG, PNG, or WebP images are allowed.");
+      e.target.value = "";
       return;
     }
+
     if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image size must be less than 5 MB.");
+      toast.error("Image is too large. Maximum allowed size is 5 MB.");
+      e.target.value = "";
       return;
     }
+
     setProfileImage(file);
     setImagePreview(URL.createObjectURL(file));
-  };  
-
-  const uploadProfileImage = async () => {
-    if (!profileImage) return "";
-    setImageUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("image", profileImage);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_IMAGEBB_URL}?key=${process.env.NEXT_PUBLIC_IMAGEBB_API_KEY}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const result = await response.json();
-      if (!response.ok || !result.success) {
-        throw new Error(result.error?.message || "Image upload failed.");
-      }
-      return result.data.url;
-    } finally {
-      setImageUploading(false);
-    }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
-    if (password.length < 8) {
-      setError("Password must contain at least 8 characters.");
-      return;
+
+    if (!accountCreated) {
+      if (password.length < 8) {
+        setError("Password must contain at least 8 characters.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError("Passwords do not match.");
+        return;
+      }
     }
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+
     setLoading(true);
     try {
-      const response = await registerUser(
-        email.trim(),
-        password
-      );
-      if (!response.user) {
-        throw new Error("Account creation failed.");
-      }
-      
-      toast.success("Account Created!");
-      
-      const updatedUser = await updateUser({
-        displayName: fullName.trim(),
-      });
+      const displayName = fullName.trim();
 
-      const photoURL = await uploadProfileImage();
-      const firebaseUser = response.user;
-      if (!firebaseUser) {
-        throw new Error("Authentication required.");
+      if (!accountCreated) {
+        const response = await registerUser(email.trim(), password);
+
+        if (!response.user) {
+          throw new Error("Account creation failed.");
+        }
+
+        await updateUser({ displayName });
+
+        await apiFetch("/users/me", {
+          method: "PUT",
+          body: JSON.stringify({ displayName }),
+        });
+
+        setAccountCreated(true);
+        toast.success("Account Created!");
       }
-      
-      await apiFetch("/users/me", {
-        method: "PUT",
-        body: JSON.stringify({
-          displayName: updatedUser?.displayName || fullName.trim(),
-          photoURL: photoURL || updatedUser?.photoURL || "",
-        }),
-      });
+
+      if (profileImage) {
+        setImageUploading(true);
+
+        const formData = new FormData();
+        formData.append("image", profileImage);
+
+        const upload = await apiFetch("/uploads/profile", {
+          method: "POST",
+          body: formData,
+        });
+
+        const photoURL = upload?.data?.url;
+
+        if (photoURL) {
+          await apiFetch("/users/me", {
+            method: "PUT",
+            body: JSON.stringify({ displayName, photoURL }),
+          });
+        }
+
+        setImageUploading(false);
+      }
 
       window.location.assign("/");
-
     } catch (error) {
       console.error("Registration error:", error);
+      setImageUploading(false);
+
       if (error.code === "auth/email-already-in-use") {
         setError("This email is already registered.");
         toast.error("Email already registered!");
+      } else if (accountCreated) {
+        setError(
+          "Your account was created, but the photo upload failed. You can retry or continue without a photo."
+        );
+        toast.error("Photo upload failed!");
       } else {
         setError(
           "Your account may have been created, but an operation failed. Please check your account before trying again."
@@ -124,7 +133,6 @@ const Page = () => {
     <main className="min-h-screen bg-transparent p-3 sm:p-6 lg:p-10">
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl overflow-hidden rounded-3xl border border-base-300 bg-base-100 shadow-xl lg:grid-cols-2">
 
-        {/* Left panel */}
         <section className="relative flex flex-col justify-between overflow-hidden bg-amber-100 p-7 text-slate-900 sm:p-10 lg:p-12">
           <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[35px] border-amber-200/70" />
           <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-amber-200/50 blur-2xl" />
@@ -186,7 +194,6 @@ const Page = () => {
           </div>
         </section>
 
-        {/* Registration form */}
         <section className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
           <div className="w-full max-w-md">
             <div className="mb-7">
@@ -204,7 +211,7 @@ const Page = () => {
             </div>
 
             <form onSubmit={handleRegister} className="space-y-4">
-              {/* Full name */}
+            
               <div className="form-control">
                 <label htmlFor="fullName" className="label pb-2">
                   <span className="label-text font-semibold">Full name</span>
@@ -229,13 +236,12 @@ const Page = () => {
                 </div>
               </div>
 
-              {/* Profile image */}
               <div className="form-control">
-                <label htmlFor="profileImage" className="label pb-1">
+                <div className="label pb-1">
                   <span className="label-text font-semibold">
                     Profile picture
                   </span>
-                </label>
+                </div>
 
                 <div className="flex items-center gap-4">
                   <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-base-300 bg-base-200">
@@ -254,9 +260,9 @@ const Page = () => {
                     <input
                       id="profileImage"
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg,image/png,image/webp"
                       onChange={handleImageChange}
-                      className="file-input file-input-bordered w-full rounded-xl"
+                      className="file-input file-input-bordered h-12 w-full rounded-xl"
                     />
                     <p className="mt-2 text-xs text-base-content/50">
                       JPG, PNG, or other supported image formats. Maximum 5 MB.
@@ -296,7 +302,6 @@ const Page = () => {
                 </p>
               </div> */}
 
-              {/* Email */}
               <div className="form-control">
                 <label htmlFor="email" className="label pb-2">
                   <span className="label-text font-semibold">
@@ -323,7 +328,6 @@ const Page = () => {
                 </div>
               </div>
 
-              {/* Password */}
               <div className="form-control">
                 <label htmlFor="password" className="label pb-2">
                   <span className="label-text font-semibold">Password</span>
@@ -356,7 +360,6 @@ const Page = () => {
                 </div>
               </div>
 
-              {/* Confirm password */}
               <div className="form-control">
                 <label htmlFor="confirmPassword" className="label pb-2">
                   <span className="label-text font-semibold">
@@ -408,12 +411,22 @@ const Page = () => {
                 </p>
               )}
 
+              {accountCreated && (
+                <button
+                  type="button"
+                  onClick={() => window.location.assign("/")}
+                  className="btn h-12 min-h-12 w-full rounded-xl border border-base-300 bg-base-100 font-semibold text-base-content hover:bg-base-200"
+                >
+                  Continue without a photo
+                </button>
+              )}
+
               <button
                 type="submit"
                 disabled={loading}
                 className="btn h-14 min-h-14 w-full rounded-xl border-0 bg-slate-900 text-base font-bold text-white shadow-lg transition hover:bg-amber-700"
               >
-                {loading ? "Creating account..." : "Create account"}
+                {loading ? (imageUploading ? "Uploading photo..." : "Please wait...") : accountCreated ? (profileImage ? "Retry photo upload" : "Continue") : "Create account"}
                 {!loading && <FiArrowRight size={18} />}
               </button>
             </form>
