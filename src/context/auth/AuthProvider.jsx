@@ -31,6 +31,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInUser = (email, password) => {
+    
     return signInWithEmailAndPassword(auth, email, password);
   };
 
