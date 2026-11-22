@@ -7,19 +7,19 @@ import toast from "react-hot-toast";
 
 const AllowUserOnly = ({ children }) => {
     
-  const { user, isLoading } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
   const hasRedirected = useRef(false);
 
   useEffect(() => {
-    if (isLoading || user || hasRedirected.current) return;
+    if (loading || user || hasRedirected.current) return;
     hasRedirected.current = true;
     toast.error("Authentication required");
 
     router.replace("/login");
-  }, [isLoading, user, router]);
+  }, [loading, user, router]);
 
-  if (isLoading || !user) {
+  if (loading || !user) {
     return null;
   }
 

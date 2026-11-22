@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(user);
 
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -55,6 +54,20 @@ const AuthProvider = ({ children }) => {
     }
 
     return updateProfile(auth.currentUser, profile);
+  };
+
+  const refreshUser = async () => {
+    const dbUser = await getusersFromDB();
+
+    if (!dbUser) return null;
+
+    setUser((previous) =>
+      previous
+        ? { ...previous, role: dbUser.role ?? null, dbUser }
+        : previous
+    );
+
+    return dbUser;
   };
 
  useEffect(() => {
@@ -91,6 +104,7 @@ const AuthProvider = ({ children }) => {
     sendReset,
     logOut,
     updateUser,
+    refreshUser,
   };
 
   return (

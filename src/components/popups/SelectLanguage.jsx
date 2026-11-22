@@ -58,28 +58,27 @@ export default function SelectLanguage({
 
   const closeDialog = () => onOpenChange?.(false);
 
-const { setLoading } = useAuth();
-// console.log(user);
+  const { refreshUser } = useAuth();
 
-const handleContinue = async () => {
-  if (!selectedLanguage) return;
+  const handleContinue = async () => {
+    if (!selectedLanguage) return;
 
-  try {
-    await apiFetch("/users/update/language", {
-      method: "PATCH",
-      body: JSON.stringify({
-        language: selectedLanguage,
-      }),
-    });
+    try {
+      const data = await apiFetch("/users/update/language", {
+        method: "PATCH",
+        body: JSON.stringify({
+          language: selectedLanguage,
+        }),
+      });
 
-    onLanguageSelect?.(selectedLanguage);
-    toast.success("Language selected successfully!");
-    window.location.reload();
-    closeDialog();
-  } catch (error) {
-    toast.error(error.message || "Failed to save language.");
-  }
-};
+      await refreshUser();
+      onLanguageSelect?.(selectedLanguage);
+      toast.success(data?.message || "Language selected successfully!");
+      closeDialog();
+    } catch (error) {
+      toast.error(error.message || "Failed to save language.");
+    }
+  };
 
   if (!open) return null;
 

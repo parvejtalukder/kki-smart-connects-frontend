@@ -282,8 +282,7 @@ const useChat = () => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, loadingMessages]);
 
-    const handleLanguageSelect = (language) => {
-        console.log("Selected language:", language);
+    const handleLanguageSelect = () => {
         setShowLanguagePopup(false);
     };
 
