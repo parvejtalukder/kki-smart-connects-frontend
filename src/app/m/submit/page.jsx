@@ -1,6 +1,15 @@
+import AllowUserOnly from "@/lib/protection/AllowUserOnly";
+import Submit from "./Submit";
+
+export const metadata = {
+   title: 'Authorship application | KKI Smart Connects',
+}
+
 const page = () => {
     return (
-        <div></div>
+        <AllowUserOnly>
+            <Submit></Submit>
+        </AllowUserOnly>
     )
 }
 

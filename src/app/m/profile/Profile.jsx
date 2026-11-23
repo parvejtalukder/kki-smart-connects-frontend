@@ -23,7 +23,7 @@ import apiFetch from "@/utils/apiFetch";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-const PLATFORM_KEY = /^[a-z0-9_-]{1,30}$/;
+const platformKey = /^[a-z0-9_-]{1,30}$/;
 
 export default function Profile() {
   const { user, refreshUser, updateUser } = useAuth();
@@ -237,7 +237,7 @@ export default function Profile() {
         return;
       }
 
-      if (!PLATFORM_KEY.test(platform)) {
+      if (!platformKey.test(platform)) {
         toast.error(
           `"${link.platform.trim()}" is not a valid platform name. Use letters, numbers, "-" or "_".`
         );
@@ -320,7 +320,7 @@ export default function Profile() {
       <div className="mx-auto min-h-screen w-full max-w-6xl px-4 pb-24 pt-5 sm:px-6 md:py-8 lg:px-8">
         <div className="mb-5 flex items-center justify-between md:mb-6">
           <div>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="mt-1 text-2xl font-bold tracking-tight text-ink">
               Profile
             </h1>
           </div>
@@ -328,10 +328,10 @@ export default function Profile() {
 
         <div className="grid items-start gap-4 md:grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6">
           <div className="space-y-4">
-            <Card className="overflow-hidden border-slate-200 bg-white p-0 shadow-sm">
-              <div className="relative h-24 overflow-hidden bg-gradient-to-r from-amber-200 via-orange-100 to-amber-50 sm:h-32 lg:h-44">
-                <div className="absolute -right-16 -top-24 size-64 rounded-full border border-amber-300/40" />
-                <div className="absolute right-12 top-8 size-24 rounded-full border border-amber-300/30" />
+            <Card className="overflow-hidden border-paper-200 bg-white p-0 shadow-sm">
+              <div className="relative h-24 overflow-hidden bg-gradient-to-r from-brand-200 via-peri-200 to-brand-50 sm:h-32 lg:h-44">
+                <div className="absolute -right-16 -top-24 size-64 rounded-full border border-brand-300/40" />
+                <div className="absolute right-12 top-8 size-24 rounded-full border border-brand-300/30" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.8),transparent_38%)]" />
               </div>
               <CardContent className="relative px-5 pb-5 sm:px-6 lg:px-8 lg:pb-8">
@@ -341,7 +341,7 @@ export default function Profile() {
                       src={dbUser?.photoURL}
                       alt={dbUser?.displayName || "User"}
                     />
-                    <AvatarFallback className="bg-amber-500 text-xl font-bold text-white">
+                    <AvatarFallback className="bg-royal-600 text-xl font-bold text-white">
                       {initials}
                     </AvatarFallback>
                   </Avatar>
@@ -352,42 +352,42 @@ export default function Profile() {
                       variant="outline"
                       size="sm"
                       onClick={openEditProfile}
-                      className="h-9 border-slate-200 bg-white px-3 text-slate-700 sm:h-10 lg:px-4"
+                      className="h-9 border-paper-200 bg-white px-3 text-ink-700 sm:h-10 lg:px-4"
                     >
                       <Edit className="size-4" />
                       <span>Edit</span>
                     </Button>
                     <Button
-                      onClick={() => router.push("/m/application")}
+                      onClick={() => router.push("/m/submit")}
                       type="button"
                       size="sm"
-                      className="h-9 bg-amber-500 px-3 text-white hover:bg-amber-600 sm:h-10 lg:px-4"
+                      className="h-9 bg-royal-600 px-3 text-white hover:bg-royal-700 sm:h-10 lg:px-4"
                     >
                       <FilePen className="size-4" />
-                      <span>Application</span>
+                      <span>Submit</span>
                     </Button>
                   </div>
                 </div>
 
                 <div className="mt-3 sm:mt-4">
-                  <h2 className="text-xl font-bold text-slate-900 sm:text-2xl lg:text-3xl">
+                  <h2 className="text-xl font-bold text-ink sm:text-2xl lg:text-3xl">
                     {dbUser?.displayName || "User"}
                   </h2>
                   <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
+                    <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
                       {role}
                     </span>
                   </div>
-                  <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 lg:text-base">
+                  <p className="mt-4 max-w-2xl text-sm leading-6 text-ink-500 lg:text-base">
                     {bio}
                   </p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white p-0 shadow-sm">
+            <Card className="border-paper-200 bg-white p-0 shadow-sm">
               <CardContent className="p-4 sm:p-5">
-                <h3 className="text-sm font-bold text-slate-900">Social media</h3>
+                <h3 className="text-sm font-bold text-ink">Social media</h3>
                 {socialLinks.length > 0 && (
                   <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {socialLinks.map((link, index) => (
@@ -396,28 +396,28 @@ export default function Profile() {
                         href={link.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex max-w-full items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:border-amber-300 hover:bg-amber-50"
+                        className="flex max-w-full items-center gap-2 rounded-lg border border-paper-200 px-3 py-2 text-xs font-semibold text-ink-700 transition hover:border-brand-300 hover:bg-brand-50"
                       >
-                        <Link2 className="size-3.5 shrink-0 text-amber-600" />
+                        <Link2 className="size-3.5 shrink-0 text-brand-600" />
                         <span className="truncate">{link.label}</span>
                       </a>
                     ))}
                   </div>
                 )}
                 {socialLinks.length === 0 && (
-                  <div className="mt-4 rounded-lg border border-dashed border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
+                  <div className="mt-4 rounded-lg border border-dashed border-paper-200 bg-paper-50 px-4 py-6 text-center text-sm text-ink-300">
                     No public social profiles yet.
                   </div>
                 )}
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white p-0 shadow-sm">
+            <Card className="border-paper-200 bg-white p-0 shadow-sm">
               <CardContent className="p-4 sm:p-5">
-                <h3 className="text-sm font-bold text-slate-900">Posts</h3>
-                <div className="mt-3 min-h-36 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center sm:min-h-44 sm:flex sm:flex-col sm:items-center sm:justify-center">
-                  <p className="text-sm font-semibold text-slate-700">No posts yet</p>
-                  <p className="mt-1 text-xs text-slate-400">
+                <h3 className="text-sm font-bold text-ink">Posts</h3>
+                <div className="mt-3 min-h-36 rounded-xl border border-dashed border-paper-200 bg-paper-50 px-4 py-8 text-center sm:min-h-44 sm:flex sm:flex-col sm:items-center sm:justify-center">
+                  <p className="text-sm font-semibold text-ink-700">No posts yet</p>
+                  <p className="mt-1 text-xs text-ink-300">
                     New posts will appear here.
                   </p>
                 </div>
@@ -426,63 +426,63 @@ export default function Profile() {
           </div>
 
           <aside className="space-y-4 lg:sticky lg:top-24">
-            <Card className="border-slate-200 bg-white p-0 shadow-sm">
+            <Card className="border-paper-200 bg-white p-0 shadow-sm">
               <CardContent className="p-5">
-                <h3 className="text-sm font-bold text-slate-900">Account details</h3>
+                <h3 className="text-sm font-bold text-ink">Account details</h3>
                 <dl className="mt-4 divide-y divide-slate-100">
                   <div className="py-3">
-                    <dt className="flex items-center gap-2 text-xs text-slate-500">
-                      <CalendarDays className="size-3.5 text-amber-600" />
+                    <dt className="flex items-center gap-2 text-xs text-ink-500">
+                      <CalendarDays className="size-3.5 text-brand-600" />
                       Member since
                     </dt>
-                    <dd className="mt-1 text-sm font-semibold text-slate-800">{memberSince}</dd>
+                    <dd className="mt-1 text-sm font-semibold text-ink-700">{memberSince}</dd>
                   </div>
                   <div className="py-3">
-                    <dt className="flex items-center gap-2 text-xs text-slate-500">
-                      <ShieldCheck className="size-3.5 text-amber-600" />
+                    <dt className="flex items-center gap-2 text-xs text-ink-500">
+                      <ShieldCheck className="size-3.5 text-brand-600" />
                       Role
                     </dt>
-                    <dd className="mt-1 text-sm font-semibold text-slate-800">{role}</dd>
+                    <dd className="mt-1 text-sm font-semibold text-ink-700">{role}</dd>
                   </div>
                   <div className="py-3">
-                    <dt className="flex items-center gap-2 text-xs text-slate-500">
-                      <UserRound className="size-3.5 text-amber-600" />
+                    <dt className="flex items-center gap-2 text-xs text-ink-500">
+                      <UserRound className="size-3.5 text-brand-600" />
                       Gender
                     </dt>
-                    <dd className="mt-1 text-sm font-semibold text-slate-800">{gender}</dd>
+                    <dd className="mt-1 text-sm font-semibold text-ink-700">{gender}</dd>
                   </div>
                 </dl>
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white p-0 shadow-sm">
+            <Card className="border-paper-200 bg-white p-0 shadow-sm">
               <CardContent className="p-5">
-                <h3 className="text-sm font-bold text-slate-900">Community</h3>
+                <h3 className="text-sm font-bold text-ink">Community</h3>
                 <div className="mt-4 space-y-3">
                   <button
                     type="button"
                     onClick={() => setShowLanguagePopup(true)}
-                    className="flex w-full items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 text-left transition hover:border-amber-200 hover:bg-amber-50"
+                    className="flex w-full items-center justify-between rounded-xl border border-paper-100 bg-paper-50 px-4 py-3 text-left transition hover:border-brand-200 hover:bg-brand-50"
                   >
-                    <span className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                      <Globe2 className="size-4 text-amber-600" />
+                    <span className="flex items-center gap-2 text-xs font-medium text-ink-500">
+                      <Globe2 className="size-4 text-brand-600" />
                       Language
                     </span>
-                    <span className="max-w-32 truncate text-sm font-semibold text-slate-800">
+                    <span className="max-w-32 truncate text-sm font-semibold text-ink-700">
                       {languageName}
                     </span>
                   </button>
 
-                  <div className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
-                    <span className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                      <ShieldCheck className="size-4 text-amber-600" />
+                  <div className="flex items-center justify-between rounded-xl border border-paper-100 bg-paper-50 px-4 py-3">
+                    <span className="flex items-center gap-2 text-xs font-medium text-ink-500">
+                      <ShieldCheck className="size-4 text-brand-600" />
                       Status
                     </span>
-                    <span className="flex items-center gap-2 text-sm font-semibold text-slate-800">
+                    <span className="flex items-center gap-2 text-sm font-semibold text-ink-700">
                       <span
                         className={`size-2 rounded-full ${
                           dbUser?.status === "active"
-                            ? "bg-emerald-500"
+                            ? "bg-brand-500"
                             : "bg-slate-400"
                         }`}
                       />
@@ -507,15 +507,15 @@ export default function Profile() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="edit-profile-title"
-            className="max-h-[92vh] w-full overflow-y-auto rounded-t-3xl border border-slate-200 bg-white shadow-2xl sm:max-w-2xl sm:rounded-2xl"
+            className="max-h-[92vh] w-full overflow-y-auto rounded-t-3xl border border-paper-200 bg-white shadow-2xl sm:max-w-2xl sm:rounded-2xl"
           >
             <form onSubmit={handleSaveProfile}>
-              <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-100 bg-white px-5 py-4 sm:px-6">
+              <header className="sticky top-0 z-10 flex items-center justify-between border-b border-paper-100 bg-white px-5 py-4 sm:px-6">
                 <div>
-                  <h2 id="edit-profile-title" className="text-lg font-bold text-slate-900">
+                  <h2 id="edit-profile-title" className="text-lg font-bold text-ink">
                     Edit profile
                   </h2>
-                  <p className="mt-0.5 text-xs text-slate-500">
+                  <p className="mt-0.5 text-xs text-ink-500">
                     Update your public profile information.
                   </p>
                 </div>
@@ -524,29 +524,29 @@ export default function Profile() {
                   onClick={closeEditProfile}
                   disabled={savingProfile}
                   aria-label="Close edit profile"
-                  className="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-800 disabled:opacity-50"
+                  className="rounded-lg p-2 text-ink-500 transition hover:bg-paper-100 hover:text-ink-700 disabled:opacity-50"
                 >
                   <X className="size-5" />
                 </button>
               </header>
 
               <div className="space-y-5 px-5 py-5 sm:px-6">
-                <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-slate-50 p-4">
+                <div className="flex items-center gap-4 rounded-xl border border-paper-100 bg-paper-50 p-4">
                   <Avatar className="size-20 shrink-0 border-2 border-white shadow-sm">
                     <AvatarImage
                       src={profileImagePreview}
                       alt={profileForm.displayName || "Profile photo"}
                     />
-                    <AvatarFallback className="bg-amber-500 font-bold text-white">
+                    <AvatarFallback className="bg-royal-600 font-bold text-white">
                       {initials}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
                     <label
                       htmlFor="edit-profile-photo"
-                      className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-amber-300 hover:bg-amber-50"
+                      className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-paper-200 bg-white px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:bg-brand-50"
                     >
-                      <Camera className="size-4 text-amber-600" />
+                      <Camera className="size-4 text-brand-600" />
                       Change photo
                     </label>
                     <input
@@ -556,7 +556,7 @@ export default function Profile() {
                       onChange={handleProfileImageChange}
                       className="hidden"
                     />
-                    <p className="mt-2 text-xs text-slate-400">
+                    <p className="mt-2 text-xs text-ink-300">
                       JPG, PNG, or WebP. Maximum 5 MB.
                     </p>
                   </div>
@@ -564,7 +564,7 @@ export default function Profile() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="sm:col-span-2">
-                    <span className="mb-2 block text-sm font-semibold text-slate-700">
+                    <span className="mb-2 block text-sm font-semibold text-ink-700">
                       Display name
                     </span>
                     <input
@@ -575,12 +575,12 @@ export default function Profile() {
                       }
                       maxLength={100}
                       required
-                      className="h-11 w-full rounded-lg border border-slate-200 px-3 text-sm outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
+                      className="h-11 w-full rounded-lg border border-paper-200 px-3 text-sm outline-none transition focus:border-royal-400 focus:ring-4 focus:ring-brand-100"
                     />
                   </label>
 
                   <label className="sm:col-span-2">
-                    <span className="mb-2 block text-sm font-semibold text-slate-700">
+                    <span className="mb-2 block text-sm font-semibold text-ink-700">
                       Bio
                     </span>
                     <textarea
@@ -591,15 +591,15 @@ export default function Profile() {
                       rows={4}
                       maxLength={500}
                       placeholder="Give your short bio here..."
-                      className="w-full resize-none rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
+                      className="w-full resize-none rounded-lg border border-paper-200 px-3 py-2.5 text-sm outline-none transition focus:border-royal-400 focus:ring-4 focus:ring-brand-100"
                     />
-                    <span className="mt-1 block text-right text-xs text-slate-400">
+                    <span className="mt-1 block text-right text-xs text-ink-300">
                       {profileForm.bio.length}/500
                     </span>
                   </label>
 
                   <label>
-                    <span className="mb-2 block text-sm font-semibold text-slate-700">
+                    <span className="mb-2 block text-sm font-semibold text-ink-700">
                       Gender
                     </span>
                     <select
@@ -607,7 +607,7 @@ export default function Profile() {
                       onChange={(event) =>
                         updateProfileField("gender", event.target.value)
                       }
-                      className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
+                      className="h-11 w-full rounded-lg border border-paper-200 bg-white px-3 text-sm outline-none transition focus:border-royal-400 focus:ring-4 focus:ring-brand-100"
                     >
                       <option value="">Not specified</option>
                       <option value="male">Male</option>
@@ -620,19 +620,19 @@ export default function Profile() {
                 <div>
                   <div className="mb-3 flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-700">
+                      <h3 className="text-sm font-semibold text-ink-700">
                         Social media
                       </h3>
-                      <p className="mt-0.5 text-xs text-slate-400">
+                      <p className="mt-0.5 text-xs text-ink-300">
                         Add Facebook, X, LinkedIn, or another profile.
                       </p>
                     </div>
                     <button
                       type="button"
                       onClick={addSocialLink}
-                      className="flex h-9 items-center gap-1.5 rounded-lg border border-slate-200 px-3 text-xs font-semibold text-slate-700 transition hover:border-amber-300 hover:bg-amber-50"
+                      className="flex h-9 items-center gap-1.5 rounded-lg border border-paper-200 px-3 text-xs font-semibold text-ink-700 transition hover:border-brand-300 hover:bg-brand-50"
                     >
-                      <Plus className="size-3.5 text-amber-600" />
+                      <Plus className="size-3.5 text-brand-600" />
                       Add
                     </button>
                   </div>
@@ -642,7 +642,7 @@ export default function Profile() {
                       <button
                         type="button"
                         onClick={addSocialLink}
-                        className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 px-4 py-5 text-sm text-slate-500 transition hover:border-amber-300 hover:bg-amber-50"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 px-4 py-5 text-sm text-ink-500 transition hover:border-brand-300 hover:bg-brand-50"
                       >
                         <Plus className="size-4" />
                         Add a social profile
@@ -660,7 +660,7 @@ export default function Profile() {
                               updateSocialLink(index, "platform", event.target.value)
                             }
                             placeholder="Platform"
-                            className="h-10 min-w-0 rounded-lg border border-slate-200 px-3 text-sm outline-none focus:border-amber-400"
+                            className="h-10 min-w-0 rounded-lg border border-paper-200 px-3 text-sm outline-none focus:border-royal-400"
                           />
                           <input
                             type="url"
@@ -669,13 +669,13 @@ export default function Profile() {
                               updateSocialLink(index, "url", event.target.value)
                             }
                             placeholder="https://..."
-                            className="h-10 min-w-0 rounded-lg border border-slate-200 px-3 text-sm outline-none focus:border-amber-400"
+                            className="h-10 min-w-0 rounded-lg border border-paper-200 px-3 text-sm outline-none focus:border-royal-400"
                           />
                           <button
                             type="button"
                             onClick={() => removeSocialLink(index)}
                             aria-label={`Remove ${link.platform || "social link"}`}
-                            className="flex size-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-50 hover:text-red-500"
+                            className="flex size-9 items-center justify-center rounded-lg text-ink-300 transition hover:bg-red-50 hover:text-red-500"
                           >
                             <Trash2 className="size-4" />
                           </button>
@@ -686,20 +686,20 @@ export default function Profile() {
                 </div>
               </div>
 
-              <footer className="sticky bottom-0 flex justify-end gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:px-6">
+              <footer className="sticky bottom-0 flex justify-end gap-2 border-t border-paper-100 bg-white px-5 py-4 sm:px-6">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={closeEditProfile}
                   disabled={savingProfile}
-                  className="h-10 border-slate-200"
+                  className="h-10 border-paper-200"
                 >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
                   disabled={savingProfile}
-                  className="h-10 bg-amber-500 px-5 text-white hover:bg-amber-600"
+                  className="h-10 bg-royal-600 px-5 text-white hover:bg-royal-700"
                 >
                   {savingProfile ? "Saving..." : "Save changes"}
                 </Button>

@@ -34,7 +34,7 @@ const Header = () => {
   if (loading) return <Loader />;
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-amber-200/60 bg-white/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-paper-200/80 bg-paper-50/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="flex h-14 w-12 items-center justify-center">
@@ -48,10 +48,10 @@ const Header = () => {
           </div>
 
           <div className="hidden leading-tight sm:block">
-            <p className="text-base font-bold tracking-tight text-gray-900">
+            <p className="text-base font-bold tracking-tight text-ink">
               Kavya Kishor International
             </p>
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-ink-500">
               Connect. Communicate. Collaborate.
             </p>
           </div>
@@ -67,10 +67,10 @@ const Header = () => {
               href={link.href}
               className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
                 pathname === link.href
-                  ? "bg-amber-100 text-amber-900"
-                  : "text-gray-700 hover:bg-amber-100/70 hover:text-amber-900"
+                  ? "bg-brand-100 text-brand-900"
+                  : "text-ink-700 hover:bg-brand-100/70 hover:text-brand-900"
               }`}
-              // className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-amber-100/70 hover:text-amber-900"
+              // className="rounded-lg px-3 py-2 text-sm font-medium text-ink-700 transition hover:bg-brand-100/70 hover:text-brand-900"
             >
               {link.label}
             </Link>
@@ -80,7 +80,7 @@ const Header = () => {
             <button
               type="button"
               onClick={handleLogOut}
-              className="btn btn-soft btn-warning"
+              className="inline-flex items-center gap-2 rounded-lg bg-royal-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-royal-700"
             >
               <LogOutIcon size={16} />
               Log Out
@@ -89,7 +89,7 @@ const Header = () => {
             <button
               type="button"
               onClick={() => router.push("/login")}
-              className="btn btn-soft btn-warning"
+              className="inline-flex items-center gap-2 rounded-lg bg-royal-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-royal-700"
             >
               <LogInIcon size={16} />
               Log In
@@ -117,13 +117,13 @@ const Header = () => {
 
           <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content z-10 mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            className="menu menu-sm dropdown-content z-10 mt-3 w-52 rounded-box bg-white p-2 shadow"
           >
                {navlinks.map((link) => (
               <Link 
                 key={link.href}
                 href={link.href} 
-                className={pathname === link.href ? "bg-amber-100 font-semibold text-amber-900" : ""} 
+                className={pathname === link.href ? "bg-brand-100 font-semibold text-brand-900" : ""} 
                 aria-current={pathname === link.href ? "page" : undefined}
               > 
                 {link.label} 

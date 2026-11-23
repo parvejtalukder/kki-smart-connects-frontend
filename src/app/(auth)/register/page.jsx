@@ -133,26 +133,26 @@ const Page = () => {
     <main className="min-h-screen bg-transparent p-3 sm:p-6 lg:p-10">
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl overflow-hidden rounded-3xl border border-base-300 bg-base-100 shadow-xl lg:grid-cols-2">
 
-        <section className="relative flex flex-col justify-between overflow-hidden bg-amber-100 p-7 text-slate-900 sm:p-10 lg:p-12">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[35px] border-amber-200/70" />
-          <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-amber-200/50 blur-2xl" />
+        <section className="relative flex flex-col justify-between overflow-hidden bg-brand-100 p-7 text-ink sm:p-10 lg:p-12">
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[35px] border-brand-200/70" />
+          <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-brand-200/50 blur-2xl" />
 
           <Link href="/" className="relative z-10 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-amber-200 shadow-lg">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-brand-200 shadow-lg">
               <FiFeather size={24} />
             </div>
             <div>
               <h2 className="text-xl font-black tracking-tight">
                 KKI Smart Connects
               </h2>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-ink-500">
                 Publication · Collaboration · Community
               </p>
             </div>
           </Link>
 
           <div className="relative z-10 my-12">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-white/60 px-4 py-2 text-sm font-medium">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-300 bg-white/60 px-4 py-2 text-sm font-medium">
               <FiBookOpen />
               <span>Your literary journey starts here</span>
             </div>
@@ -160,12 +160,12 @@ const Page = () => {
             <h1 className="max-w-lg text-4xl font-black leading-tight tracking-tight sm:text-5xl">
               Discover stories.
               <br />
-              <span className="text-amber-700">
+              <span className="text-brand-700">
                 Connect through words.
               </span>
             </h1>
 
-            <p className="mt-6 max-w-md text-base leading-7 text-slate-700">
+            <p className="mt-6 max-w-md text-base leading-7 text-ink-700">
               Create your free reader account to explore published works,
               discover talented authors, and follow the voices that inspire you.
             </p>
@@ -177,10 +177,10 @@ const Page = () => {
                 "Build your own reading journey",
               ].map((feature) => (
                 <div key={feature} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-200 text-amber-900">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-200 text-brand-900">
                     <FiArrowRight size={14} />
                   </span>
-                  <span className="text-sm font-medium text-slate-700">
+                  <span className="text-sm font-medium text-ink-700">
                     {feature}
                   </span>
                 </div>
@@ -188,7 +188,7 @@ const Page = () => {
             </div>
           </div>
 
-          <div className="relative z-10 flex items-center gap-2 text-xs text-slate-600">
+          <div className="relative z-10 flex items-center gap-2 text-xs text-ink-500">
             <FiShield size={15} />
             <span>Your account, your reading journey.</span>
           </div>
@@ -197,7 +197,7 @@ const Page = () => {
         <section className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
           <div className="w-full max-w-md">
             <div className="mb-7">
-              <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-amber-700">
+              <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-brand-700">
                 Join our community
               </p>
 
@@ -231,7 +231,7 @@ const Page = () => {
                     maxLength={100}
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="input input-bordered h-12 w-full rounded-xl pl-11 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-12 w-full rounded-xl pl-11 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                 </div>
               </div>
@@ -294,7 +294,7 @@ const Page = () => {
                     title="Use letters, numbers, and underscores only."
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="input input-bordered h-12 w-full rounded-xl pl-11 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-12 w-full rounded-xl pl-11 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                 </div>
                 <p className="mt-1 text-xs text-base-content/50">
@@ -323,7 +323,7 @@ const Page = () => {
                     maxLength={254}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="input input-bordered h-12 w-full rounded-xl pl-11 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-12 w-full rounded-xl pl-11 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                 </div>
               </div>
@@ -347,7 +347,7 @@ const Page = () => {
                     minLength={8}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="input input-bordered h-12 w-full rounded-xl pl-11 pr-12 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-12 w-full rounded-xl pl-11 pr-12 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                   <button
                     type="button"
@@ -381,7 +381,7 @@ const Page = () => {
                     minLength={8}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="input input-bordered h-12 w-full rounded-xl pl-11 pr-12 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-12 w-full rounded-xl pl-11 pr-12 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                   <button
                     type="button"
@@ -424,7 +424,7 @@ const Page = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn h-14 min-h-14 w-full rounded-xl border-0 bg-slate-900 text-base font-bold text-white shadow-lg transition hover:bg-amber-700"
+                className="btn h-14 min-h-14 w-full rounded-xl border-0 bg-ink text-base font-bold text-white shadow-lg transition hover:bg-royal-700"
               >
                 {loading ? (imageUploading ? "Uploading photo..." : "Please wait...") : accountCreated ? (profileImage ? "Retry photo upload" : "Continue") : "Create account"}
                 {!loading && <FiArrowRight size={18} />}
@@ -439,7 +439,7 @@ const Page = () => {
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="font-bold text-amber-700 hover:underline"
+                className="font-bold text-royal-700 hover:underline"
               >
                 Sign in
               </Link>

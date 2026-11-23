@@ -22,3 +22,11 @@ export const timeAgo = (date) => {
     
   return 'Just now';
 }
+
+export const dateOfToday = (locale = 'en-GB') => {
+  return new Date().toLocaleDateString(locale, {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+};

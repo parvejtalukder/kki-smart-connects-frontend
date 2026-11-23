@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function ProfileLayout({ children }) {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-paper">
       <AllowUserOnly>
       {children}
       </AllowUserOnly>

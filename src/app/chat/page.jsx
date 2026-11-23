@@ -56,8 +56,8 @@ const Chat = () => {
         onLanguageSelect={handleLanguageSelect}
       />
 
-      <main className="h-dvh min-h-[480px] w-full bg-slate-50 md:p-4 lg:p-6">
-        <div className="mx-auto flex h-full max-w-[1600px] overflow-hidden border-slate-200 bg-white md:rounded-2xl md:border md:shadow-sm">
+      <main className="h-dvh min-h-[480px] w-full bg-paper md:p-4 lg:p-6">
+        <div className="mx-auto flex h-full max-w-[1600px] overflow-hidden border-paper-200 bg-white md:rounded-2xl md:border md:shadow-sm">
           <ChatSidebar
             mobileChatOpen={mobileChatOpen}
             activeTab={activeTab}

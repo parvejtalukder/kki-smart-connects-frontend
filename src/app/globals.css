@@ -5,40 +5,125 @@
 @custom-variant dark (&:is(.dark *));
 @plugin "daisyui";
 
+/* KKI brand system — amber + royal blue + periwinkle on warm paper.
+   Full rules, contrast notes and code samples: design.md */
+@theme {
+  /* Primary brand — warm amber / gold (#DF9422) */
+  --color-brand-50: #fef8ec;
+  --color-brand-100: #fbeed1;
+  --color-brand-200: #f7dba0;
+  --color-brand-300: #f0c169;
+  --color-brand-400: #e7a93f;
+  --color-brand-500: #df9422;
+  --color-brand-600: #c07816;
+  --color-brand-700: #9c5d13;
+  --color-brand-800: #7c4913;
+  --color-brand-900: #663c12;
+  --color-brand-950: #3b2108;
+
+  /* Secondary brand — electric royal blue (#0038FF) */
+  --color-royal-50: #eef2ff;
+  --color-royal-100: #dee6ff;
+  --color-royal-200: #c2cfff;
+  --color-royal-300: #9bb0ff;
+  --color-royal-400: #6e88ff;
+  --color-royal-500: #4562ff;
+  --color-royal-600: #0038ff;
+  --color-royal-700: #002fd6;
+  --color-royal-800: #0027a8;
+  --color-royal-900: #00217f;
+  --color-royal-950: #001452;
+
+  /* Accent gradient — soft periwinkle blue (#668CFF) */
+  --color-peri-50: #f0f4ff;
+  --color-peri-100: #e0e8ff;
+  --color-peri-200: #c6d4ff;
+  --color-peri-300: #a6baff;
+  --color-peri-400: #86a2ff;
+  --color-peri-500: #668cff;
+  --color-peri-600: #4a70e6;
+  --color-peri-700: #3a57b8;
+  --color-peri-800: #2f468f;
+  --color-peri-900: #27396f;
+
+  /* Outline / text — deep charcoal (#1A1A1A) */
+  --color-ink: #1a1a1a;
+  --color-ink-700: #333333;
+  --color-ink-500: #5c5c5c;
+  --color-ink-300: #a3a3a3;
+  --color-ink-200: #d8d5cd;
+
+  /* Background — warm off-white (#F7F6F2) and surfaces */
+  --color-paper: #f7f6f2;
+  --color-paper-50: #fbfaf7;
+  --color-paper-100: #f1efe9;
+  --color-paper-200: #e6e2d8;
+  --color-paper-300: #d6d1c3;
+
+  --animate-aurora: aurora 22s ease-in-out infinite alternate;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes aurora {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translate3d(28px, -22px, 0) scale(1.12);
+      opacity: 0.85;
+    }
+    100% {
+      transform: translate3d(-20px, 18px, 0) scale(0.95);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
 :root {
   /* --foreground: #171717; */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #f7f6f2;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #0038ff;
+  --primary-foreground: #ffffff;
+  --secondary: #f1efe9;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f1efe9;
+  --muted-foreground: #5c5c5c;
+  --accent: #eef2ff;
+  --accent-foreground: #00217f;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --border: #e6e2d8;
+  --input: #d6d1c3;
+  --ring: #668cff;
+  --chart-1: #df9422;
+  --chart-2: #0038ff;
+  --chart-3: #668cff;
+  --chart-4: #9c5d13;
+  --chart-5: #00217f;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #fbfaf7;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #0038ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef2ff;
+  --sidebar-accent-foreground: #00217f;
+  --sidebar-border: #e6e2d8;
+  --sidebar-ring: #668cff;
 }
 
 @theme inline {
@@ -91,8 +176,8 @@ html {
 }
 
 body {
-  background: #ffffff;
-  /* color: #171717; */
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-tiro-bangla), Arial, Helvetica, sans-serif;
 }
 
@@ -139,5 +224,13 @@ body {
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Respect reduced-motion preferences (brand motion is decorative only). */
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora,
+  .animate-fade-up {
+    animation: none;
   }
 }

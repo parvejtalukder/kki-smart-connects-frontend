@@ -41,44 +41,44 @@ const LoginPage = () => {
   return (
     <main className="min-h-screen bg-transparent p-3 sm:p-6 lg:p-10">
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl overflow-hidden rounded-3xl border border-base-300 bg-base-100 shadow-xl lg:grid-cols-2">
-        <section className="relative flex flex-col justify-between overflow-hidden bg-amber-100 p-7 text-slate-900 sm:p-10 lg:p-12">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[35px] border-amber-200/70" />
-          <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-amber-200/50 blur-2xl" />
+        <section className="relative flex flex-col justify-between overflow-hidden bg-brand-100 p-7 text-ink sm:p-10 lg:p-12">
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[35px] border-brand-200/70" />
+          <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-brand-200/50 blur-2xl" />
           <div className="relative z-10 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-amber-200 shadow-lg">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-brand-200 shadow-lg">
               <FiFeather size={24} />
             </div>
             <div>
               <h2 className="text-xl font-black tracking-tight">KKI Smart Connects</h2>
-              <p className="text-xs text-slate-600">Publication · Collaboration · Community</p>
+              <p className="text-xs text-ink-500">Publication · Collaboration · Community</p>
             </div>
           </div>
 
           <div className="relative z-10 my-12">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-white/60 px-4 py-2 text-sm font-medium">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-300 bg-white/60 px-4 py-2 text-sm font-medium">
               <FiBookOpen />
               <p>Your creative journey continues</p>
             </div>
 
             <h1 className="max-w-lg text-4xl font-black leading-tight tracking-tight sm:text-5xl">
               Every great story begins with a{" "}
-              <span className="text-amber-700">single word.</span>
+              <span className="text-brand-700">single word.</span>
             </h1>
-            <p className="mt-6 max-w-md text-base leading-7 text-slate-700">Sign in to manage your publications, connect with editors, and bring meaningful stories to readers around the world.</p>
+            <p className="mt-6 max-w-md text-base leading-7 text-ink-700">Sign in to manage your publications, connect with editors, and bring meaningful stories to readers around the world.</p>
             <div className="mt-9 flex items-center gap-4">
               <div className="flex -space-x-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-100 bg-rose-200 font-bold text-rose-900">A</div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-100 bg-sky-200 font-bold text-sky-900">E</div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-100 bg-emerald-200 font-bold text-emerald-900">R</div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-100 bg-brand-100 font-bold text-brand-800">A</div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-peri-200 bg-peri-100 font-bold text-peri-800">E</div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-royal-200 bg-royal-100 font-bold text-royal-800">R</div>
               </div>
               <div>
                 <p className="text-sm font-bold">A space for storytellers</p>
-                <p className="text-xs text-slate-600">Write, collaborate, publish.</p>
+                <p className="text-xs text-ink-500">Write, collaborate, publish.</p>
               </div>
             </div>
           </div>
 
-          <div className="relative z-10 flex items-center gap-2 text-xs text-slate-600">
+          <div className="relative z-10 flex items-center gap-2 text-xs text-ink-500">
             <FiShield />
             <p>A dedicated space for your creative work</p>
           </div>
@@ -87,7 +87,7 @@ const LoginPage = () => {
         <section className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
           <div className="w-full max-w-md">
             <div className="mb-8">
-              <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-amber-700">Welcome back</p>
+              <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-brand-700">Welcome back</p>
               <h2 className="text-3xl font-black tracking-tight text-base-content sm:text-4xl">Sign in to your account</h2>
               <p className="mt-3 text-sm leading-6 text-base-content/60">Enter your details below to access your workspace.</p>
             </div>
@@ -115,7 +115,7 @@ const LoginPage = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="input input-bordered h-14 w-full rounded-xl pl-11 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-14 w-full rounded-xl pl-11 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                 </div>
               </div>
@@ -125,7 +125,7 @@ const LoginPage = () => {
                   <label htmlFor="password" className="label pb-2">
                     <span className="label-text font-semibold">Password</span>
                   </label>
-                  <a href="/forgot-password" className="text-xs font-semibold text-amber-700 hover:underline">Forgot password?</a>
+                  <a href="/forgot-password" className="text-xs font-semibold text-royal-700 hover:underline">Forgot password?</a>
                 </div>
 
                 <div className="relative">
@@ -138,7 +138,7 @@ const LoginPage = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="input input-bordered h-14 w-full rounded-xl pl-11 pr-12 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="input input-bordered h-14 w-full rounded-xl pl-11 pr-12 focus:border-royal-500 focus:outline-none focus:ring-2 focus:ring-royal-500/25"
                   />
                   <button
                     type="button"
@@ -158,14 +158,14 @@ const LoginPage = () => {
               <label className="flex cursor-pointer items-center gap-3 text-sm text-base-content/70">
                 <input
                   type="checkbox"
-                  className="checkbox checkbox-sm rounded-md border-base-300 checked:border-amber-600 checked:bg-amber-600"
+                  className="checkbox checkbox-sm rounded-md border-base-300 checked:border-royal-600 checked:bg-royal-600"
                 />
                 <p>Keep me signed in</p>
               </label>
 
               <button
                 type="submit"
-                className="btn h-14 min-h-14 w-full rounded-xl border-0 bg-slate-900 text-base font-bold text-white shadow-lg transition hover:bg-amber-700"
+                className="btn h-14 min-h-14 w-full rounded-xl border-0 bg-ink text-base font-bold text-white shadow-lg transition hover:bg-royal-700"
               >
                 Sign in
                 <FiArrowRight size={18} />
@@ -180,7 +180,7 @@ const LoginPage = () => {
               {"Don't have an account?"}{" "}
               <a
                 href="/register"
-                className="font-bold text-amber-700 hover:underline"
+                className="font-bold text-royal-700 hover:underline"
               >
                 Create an account
               </a>

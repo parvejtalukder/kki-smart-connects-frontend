@@ -10,8 +10,38 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# testing (test suites/configs live in the remote repo; keep local copies out of git)
 /coverage
+/.nyc_output
+/test-results
+/playwright-report
+/blob-report
+/cypress/screenshots
+/cypress/videos
+/cypress/downloads
+
+# test files and directories
+**/*.test.js
+**/*.test.jsx
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.js
+**/*.spec.jsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__/
+**/__mocks__/
+**/__snapshots__/
+**/tests/
+**/test/
+jest.config.*
+jest.setup.*
+vitest.config.*
+vitest.setup.*
+playwright.config.*
+cypress.config.*
+.nycrc
+.nycrc.json
 
 # next.js
 /.next/
@@ -23,6 +53,14 @@
 # misc
 .DS_Store
 *.pem
+
+# local verification / scratch scripts
+.color-check.*
+.color-fix.*
+.verify*.mjs
+.verify*.json
+.theme-*.mjs
+.theme-*.json
 
 # debug
 npm-debug.log*

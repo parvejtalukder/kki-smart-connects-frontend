@@ -41,8 +41,8 @@ const MessageBubble = ({ message, currentUserId }) => {
       <div
         className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-sm sm:max-w-[75%]   ${
           isMine
-            ? "rounded-br-md bg-amber-500 text-white"
-            : "rounded-bl-md border border-slate-200 bg-white text-slate-800"
+            ? "rounded-br-md bg-royal-600 text-white"
+            : "rounded-bl-md border border-paper-200 bg-white text-ink-700"
         }`}>
         {image && (
           <img
@@ -73,7 +73,7 @@ const MessageBubble = ({ message, currentUserId }) => {
   
         <div
           className={`mt-1.5 flex items-center justify-end gap-1 text-[10px] ${
-            isMine ? "text-blue-100" : "text-slate-400"
+            isMine ? "text-royal-100" : "text-ink-300"
           }`}
         >
           <span>{formatTime(message.createdAt)}</span>

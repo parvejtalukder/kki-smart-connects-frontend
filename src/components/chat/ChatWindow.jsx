@@ -26,7 +26,7 @@ const ChatWindow = ({
     <section
       className={`${
         mobileChatOpen ? "flex" : "hidden"
-      } min-w-0 flex-1 flex-col bg-slate-50 md:flex`}
+      } min-w-0 flex-1 flex-col bg-paper-50 md:flex`}
     >
       {!selectedUser ? (
         <EmptyChat onExploreMembers={onExploreMembers} />
