@@ -1,7 +1,7 @@
 import Profile from './Profile';
 
 export const metadata = {
-  title: 'My Profile | KKI Smart Connects',
+  title: 'My Profile | Kavya Kishor International',
 };
 
 export default function ProfilePage() {

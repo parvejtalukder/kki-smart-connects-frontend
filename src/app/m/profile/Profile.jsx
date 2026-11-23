@@ -21,6 +21,7 @@ import SelectLanguage from "@/components/popups/SelectLanguage";
 import { useEffect, useRef, useState } from "react";
 import apiFetch from "@/utils/apiFetch";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const PLATFORM_KEY = /^[a-z0-9_-]{1,30}$/;
 
@@ -39,6 +40,8 @@ export default function Profile() {
     socialLinks: [],
   });
   const previewUrlRef = useRef("");
+
+  const router = useRouter();
 
   useEffect(() => {
     return () => {
@@ -355,6 +358,7 @@ export default function Profile() {
                       <span>Edit</span>
                     </Button>
                     <Button
+                      onClick={() => router.push("/m/application")}
                       type="button"
                       size="sm"
                       className="h-9 bg-amber-500 px-3 text-white hover:bg-amber-600 sm:h-10 lg:px-4"
